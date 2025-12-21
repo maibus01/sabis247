@@ -22,40 +22,56 @@ export default function Register() {
   };
 
   const handleRegister = async (e) => {
-    e.preventDefault();
-    const { name, email, password } = formData;
+  e.preventDefault();
+  const { name, email, password } = formData;
 
-    if (!name || !email || !password) {
-      alert(t("All fields are required"));
-      return;
-    }
+  if (!name || !email || !password) {
+    alert(t("All fields are required"));
+    return;
+  }
 
-    if (password.length < 6) {
-      alert(t("Password must be at least 6 characters"));
-      return;
-    }
+  if (password.length < 6) {
+    alert(t("Password must be at least 6 characters"));
+    return;
+  }
 
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/u;
-    if (!emailRegex.test(email)) {
-      alert(t("Please enter a valid email"));
-      return;
-    }
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRegex.test(email)) {
+    alert(t("Please enter a valid email"));
+    return;
+  }
 
-    setLoading(true);
-    try {
-      const res = await axios.post(
-        `${import.meta.env.VITE_API_URL}/api/users/register`,
-        formData
-      );
-      localStorage.setItem("loggedInUser", JSON.stringify(res.data));
-      alert(t("Registration successful"));
-      navigate("/login");
-    } catch (error) {
-      alert(error.response?.data?.message || t("Registration failed"));
-    } finally {
-      setLoading(false);
-    }
-  };
+  setLoading(true);
+
+  try {
+    const res = await axios.post(
+      `${import.meta.env.VITE_API_URL}/api/users/register`,
+      formData,
+      {
+        timeout: 25000, // 🔥 REQUIRED FOR MOBILE
+        headers: {
+          "Content-Type": "application/json"
+        }
+      }
+    );
+
+    localStorage.setItem("loggedInUser", JSON.stringify(res.data));
+    alert(t("Registration successful"));
+    navigate("/login");
+
+  } catch (error) {
+    console.error("REGISTER ERROR:", error);
+
+    alert(
+      error.response?.data?.message ||
+      error.message ||
+      "Network error. Please try again."
+    );
+  } finally {
+    setLoading(false);
+  }
+};
+
 
   const languages = [
     { code: "en", label: "English" },
