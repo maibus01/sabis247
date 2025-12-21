@@ -15,6 +15,16 @@ const earnRulesRouter = require("./src/routes/earnRule");
 const adminRoutes = require("./src/routes/admin");
 
 const app = express();
+app.get("/", (req, res) => {
+  res.send("API is running 🚀");
+});
+
+app.get("/api/health", (req, res) => {
+  res.json({ status: "ok" });
+});
+
+
+
 const PORT = process.env.PORT || 5000;
 
 app.use(cors());
@@ -49,10 +59,3 @@ app.listen(PORT, () =>
   console.log(`🚀 Server running on port ${PORT}`)
 );
 
-app.get("/", (req, res) => {
-  res.send("API is running 🚀");
-});
-
-app.get("/api/health", (req, res) => {
-  res.json({ status: "ok" });
-});
