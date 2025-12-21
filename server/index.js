@@ -21,9 +21,13 @@ const PORT = process.env.PORT || 5000;
 
 // CORS - allow only your frontend
 app.use(cors({
-  origin: "https://sabis247.vercel.app", // replace with your Vercel URL
+  origin: [
+    "http://localhost:5173",
+    "https://sabis247.vercel.app"
+  ],
   credentials: true
 }));
+
 
 app.use(bodyParser.json());
 
