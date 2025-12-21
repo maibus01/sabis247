@@ -22,7 +22,7 @@ export default function EmployeesTab({ teamId }) {
     setLoading(true);
     try {
       const membersRes = await axios.get(
-        `http://localhost:5000/api/teams/${teamId}/members`,
+        `${import.meta.env.VITE_API_URL}/api/teams/${teamId}/members`,
         { headers: { Authorization: `Bearer ${token}` } }
       );
 
@@ -36,7 +36,7 @@ export default function EmployeesTab({ teamId }) {
       const todayTotals = await Promise.all(
         employeesOnly.map(async (emp) => {
           const res = await axios.get(
-            `http://localhost:5000/api/tasks/team/${teamId}/history?userId=${emp.id}`,
+            `${import.meta.env.VITE_API_URL}/api/tasks/team/${teamId}/history?userId=${emp.id}`,
             { headers: { Authorization: `Bearer ${token}` } }
           );
 

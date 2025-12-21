@@ -30,7 +30,7 @@ export default function RequestTaskModal({
     setLoading(true);
     try {
       await axios.post(
-        "http://localhost:5000/api/tasks/request",
+        `${import.meta.env.VITE_API_URL}/api/tasks/request`,
         {
           teamId,
           employeeId,

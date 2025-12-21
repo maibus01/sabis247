@@ -46,7 +46,7 @@ export default function BottomNavbar() {
 
     try {
       const res = await axios.get(
-        `http://localhost:5000/api/teams/${storedTeam._id}`,
+        `${import.meta.env.VITE_API_URL}/api/teams/${storedTeam._id}`,
         { headers: { Authorization: `Bearer ${loggedInUser.token}` } }
       );
       latestTeam = res.data;

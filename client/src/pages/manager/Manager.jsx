@@ -42,7 +42,7 @@ export default function Manager() {
   // -----------------------------
   const fetchEmployees = async () => {
     const res = await axios.get(
-      `http://localhost:5000/api/teams/${teamId}/members`,
+      `${import.meta.env.VITE_API_URL}/api/teams/${teamId}/members`,
       { headers: { Authorization: `Bearer ${token}` } }
     );
     return res.data.filter((m) => m.role === "employee");
@@ -53,7 +53,7 @@ export default function Manager() {
   // -----------------------------
   const fetchRequests = async () => {
     const res = await axios.get(
-      `http://localhost:5000/api/tasks/requests/${teamId}`,
+      `${import.meta.env.VITE_API_URL}/api/tasks/requests/${teamId}`,
       { headers: { Authorization: `Bearer ${token}` } }
     );
     setRequests(res.data);
@@ -73,7 +73,7 @@ export default function Manager() {
     await Promise.all(
       employeesList.map(async (emp) => {
         const res = await axios.get(
-          `http://localhost:5000/api/tasks/team/${teamId}/history?userId=${emp.id}`,
+          `${import.meta.env.VITE_API_URL}/api/tasks/team/${teamId}/history?userId=${emp.id}`,
           { headers: { Authorization: `Bearer ${token}` } }
         );
 

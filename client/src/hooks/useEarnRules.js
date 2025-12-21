@@ -13,7 +13,7 @@ export default function useEarnRules(teamId, token) {
       setLoading(true);
       setError(null);
       try {
-        const res = await axios.get(`http://localhost:5000/api/earnRules/${teamId}`, {
+        const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/earnRules/${teamId}`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         setRules(res.data || []);

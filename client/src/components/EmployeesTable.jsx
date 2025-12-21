@@ -17,7 +17,7 @@ export default function EmployeesTable({ teamId, days = 1 }) {
       try {
         // Employees
         const membersRes = await axios.get(
-          `http://localhost:5000/api/teams/${teamId}/members`,
+          `${import.meta.env.VITE_API_URL}/api/teams/${teamId}/members`,
           { headers: { Authorization: `Bearer ${token}` } }
         );
 
@@ -32,7 +32,7 @@ export default function EmployeesTable({ teamId, days = 1 }) {
 
         // Tasks
         const historyRes = await axios.get(
-          `http://localhost:5000/api/tasks/team/${teamId}/history`,
+          `${import.meta.env.VITE_API_URL}/api/tasks/team/${teamId}/history`,
           { headers: { Authorization: `Bearer ${token}` } }
         );
 

@@ -18,7 +18,7 @@ export default function EmployeeHistory({ teamId, employeeId }) {
       setLoading(true);
 
       const res = await axios.get(
-        `http://localhost:5000/api/tasks/team/${teamId}/history?userId=${employeeId}`,
+        `${import.meta.env.VITE_API_URL}/api/tasks/team/${teamId}/history?userId=${employeeId}`,
         { headers: { Authorization: `Bearer ${token}` } }
       );
 

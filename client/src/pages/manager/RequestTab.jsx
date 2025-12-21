@@ -10,7 +10,7 @@ export default function RequestsTab({ requests, refreshRequests }) {
   const handleAction = async (taskId, action) => {
     try {
       await axios.patch(
-        `http://localhost:5000/api/tasks/${taskId}/${action}`,
+        `${import.meta.env.VITE_API_URL}/api/tasks/${taskId}/${action}`,
         {},
         { headers: { Authorization: `Bearer ${token}` } }
       );

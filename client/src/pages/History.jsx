@@ -25,7 +25,7 @@ export default function ManagerHistory({ teamId }) {
     try {
       setLoading(true);
       const res = await axios.get(
-        `http://localhost:5000/api/tasks/team/${teamId}/history?type=daily`,
+        `${import.meta.env.VITE_API_URL}/api/tasks/team/${teamId}/history?type=daily`,
         { headers: { Authorization: `Bearer ${token}` } }
       );
 
@@ -44,111 +44,6 @@ export default function ManagerHistory({ teamId }) {
   useEffect(() => {
     fetchHistory();
   }, [teamId]);
-
-  // const exportDatePDF = (date, tasksForDay) => {
-  //   const element = document.createElement("div");
-  //   element.style.direction = isRTL ? "rtl" : "ltr";
-  //   element.style.fontFamily = "Arial, sans-serif";
-  //   element.style.width = "100%";
-  //   element.style.padding = "20px";
-
-  //   // Header
-  //   const header = document.createElement("h2");
-  //   header.innerText = `${t("date")}: ${date}`;
-  //   header.style.textAlign = "center";
-  //   element.appendChild(header);
-
-  //   // Table
-  //   const table = document.createElement("table");
-  //   table.style.width = "100%";
-  //   table.style.borderCollapse = "collapse";
-  //   table.style.textAlign = isRTL ? "right" : "left";
-
-  //   // Table Header
-  //   const thead = document.createElement("thead");
-  //   const headerRow = document.createElement("tr");
-  //   [t("employee"), t("tasks"), t("totalEarn")].forEach((text) => {
-  //     const th = document.createElement("th");
-  //     th.innerText = text;
-  //     th.style.border = "1px solid #444";
-  //     th.style.padding = "6px 10px";
-  //     th.style.backgroundColor = "#f0f0f0";
-  //     headerRow.appendChild(th);
-  //   });
-  //   thead.appendChild(headerRow);
-  //   table.appendChild(thead);
-
-  //   // Group tasks by employee
-  //   const tasksByEmployee = tasksForDay.reduce((acc, t) => {
-  //     const empId = t.assignedTo?._id || t.assignedTo;
-  //     const empName =
-  //       t.assignedTo?.fullName || t.assignedTo?.name || t("unknown");
-  //     if (!acc[empId]) acc[empId] = { name: empName, tasks: [], totalEarn: 0 };
-  //     acc[empId].tasks.push(t.amount || 0);
-  //     acc[empId].totalEarn += t.earn || 0;
-  //     return acc;
-  //   }, {});
-
-  //   const tbody = document.createElement("tbody");
-
-  //   Object.values(tasksByEmployee).forEach((emp, idx) => {
-  //     const row = document.createElement("tr");
-
-  //     // Employee
-  //     const tdName = document.createElement("td");
-  //     tdName.innerText = `${idx + 1}. ${emp.name}`;
-  //     tdName.style.border = "1px solid #444";
-  //     tdName.style.padding = "6px 10px";
-  //     row.appendChild(tdName);
-
-  //     // Tasks (❌ NO SAR HERE)
-  //     const tdTasks = document.createElement("td");
-  //     tdTasks.style.border = "1px solid #444";
-  //     tdTasks.style.padding = "6px 10px";
-  //     tdTasks.innerText = emp.tasks.join(" | ");
-  //     row.appendChild(tdTasks);
-
-  //     // Total Earn (✅ SAR stays)
-  //     const tdTotal = document.createElement("td");
-  //     tdTotal.style.border = "1px solid #444";
-  //     tdTotal.style.padding = "6px 10px";
-  //     tdTotal.innerText = `${emp.totalEarn} ر.س`;
-  //     row.appendChild(tdTotal);
-
-  //     tbody.appendChild(row);
-  //   });
-
-  //   table.appendChild(tbody);
-  //   element.appendChild(table);
-
-  //   // Bottom totals
-  //   const totalTasks = tasksForDay.length;
-  //   const totalAmount = tasksForDay.reduce(
-  //     (sum, t) => sum + (t.amount || 0),
-  //     0
-  //   );
-  //   const totalEarn = tasksForDay.reduce((sum, t) => sum + (t.earn || 0), 0);
-
-  //   const totalsDiv = document.createElement("div");
-  //   totalsDiv.style.marginTop = "15px";
-  //   totalsDiv.style.fontWeight = "bold";
-  //   totalsDiv.innerText =
-  //     `${t("totalTasks")}: ${totalTasks} | ` +
-  //     `${t("totalAmount")}: ${totalAmount} | ` +
-  //     `${t("totalEarn")}: ${totalEarn} ر.س`;
-
-  //   element.appendChild(totalsDiv);
-
-  //   html2pdf()
-  //     .from(element)
-  //     .set({
-  //       margin: 10,
-  //       filename: `tasks_${date}.pdf`,
-  //       html2canvas: { scale: 2 },
-  //       jsPDF: { orientation: "landscape", unit: "pt", format: "a4" },
-  //     })
-  //     .save();
-  // };
 
   const exportDatePDF = (date, tasksForDay) => {
   const element = document.createElement("div");

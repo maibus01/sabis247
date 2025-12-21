@@ -40,7 +40,7 @@ export default function EmployeeProfile() {
   const fetchEmployee = async () => {
     try {
       const res = await axios.get(
-        `http://localhost:5000/api/teams/${teamId}/members`,
+        `${import.meta.env.VITE_API_URL}/api/teams/${teamId}/members`,
         { headers: { Authorization: `Bearer ${token}` } }
       );
 
@@ -60,7 +60,7 @@ export default function EmployeeProfile() {
   const fetchTasks = async () => {
     try {
       const res = await axios.get(
-        `http://localhost:5000/api/tasks/team/${teamId}/user/${employeeId}`,
+        `${import.meta.env.VITE_API_URL}/api/tasks/team/${teamId}/user/${employeeId}`,
         { headers: { Authorization: `Bearer ${token}` } }
       );
       setAllTasks(res.data || []);
@@ -89,7 +89,7 @@ export default function EmployeeProfile() {
   const handleRejectTask = async (taskId) => {
     try {
       await axios.patch(
-        `http://localhost:5000/api/tasks/${taskId}/reject`,
+       `${import.meta.env.VITE_API_URL}/api/tasks/${taskId}/reject`,
         {},
         { headers: { Authorization: `Bearer ${token}` } }
       );

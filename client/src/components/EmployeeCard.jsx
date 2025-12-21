@@ -22,13 +22,13 @@ export default function EmployeeCard({ employeeId, teamId, onClose }) {
 
       // 1️⃣ Fetch tasks for employee
       const tasksRes = await axios.get(
-        `http://localhost:5000/api/tasks/user/${employeeId}`,
+        `${import.meta.env.VITE_API_URL}/api/tasks/user/${employeeId}`,
         { headers: { Authorization: `Bearer ${token}` } }
       );
 
       // 2️⃣ Fetch team members (WORKING endpoint)
       const membersRes = await axios.get(
-        `http://localhost:5000/api/teams/${teamId}/members`,
+        `${import.meta.env.VITE_API_URL}/api/teams/${teamId}/members`,
         { headers: { Authorization: `Bearer ${token}` } }
       );
 
@@ -62,7 +62,7 @@ export default function EmployeeCard({ employeeId, teamId, onClose }) {
   const handleEdit = async (taskId) => {
     try {
       await axios.patch(
-        `http://localhost:5000/api/tasks/${taskId}`,
+        `${import.meta.env.VITE_API_URL}/api/tasks/${taskId}`,
         { amount: Number(editValue) },
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -80,7 +80,7 @@ export default function EmployeeCard({ employeeId, teamId, onClose }) {
 
     try {
       await axios.delete(
-        `http://localhost:5000/api/tasks/${taskId}`,
+        `${import.meta.env.VITE_API_URL}/api/tasks/${taskId}`,
         { headers: { Authorization: `Bearer ${token}` } }
       );
       fetchEmployeeData();

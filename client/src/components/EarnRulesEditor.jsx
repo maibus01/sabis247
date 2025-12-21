@@ -25,13 +25,13 @@ export default function EarnRulesEditor({ teamId, team, rules, refreshRules }) {
     try {
       if (editingRuleId) {
         await axios.patch(
-          `http://localhost:5000/api/earnRules/${editingRuleId}`,
+          `${import.meta.env.VITE_API_URL}/api/earnRules/${editingRuleId}`,
           { minAmount, maxAmount, earn },
           { headers: { Authorization: `Bearer ${token}` } }
         );
       } else {
         await axios.post(
-          "http://localhost:5000/api/earnRules",
+          `${import.meta.env.VITE_API_URL}/api/earnRules`,
           { teamId, minAmount, maxAmount, earn },
           { headers: { Authorization: `Bearer ${token}` } }
         );
@@ -62,7 +62,7 @@ export default function EarnRulesEditor({ teamId, team, rules, refreshRules }) {
     setLoading(true);
 
     try {
-      await axios.delete(`http://localhost:5000/api/earnRules/${ruleId}`, {
+      await axios.delete(`${import.meta.env.VITE_API_URL}/api/earnRules/${ruleId}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       await refreshRules();

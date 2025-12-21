@@ -16,7 +16,7 @@ export default function AddTaskInput({ teamId, token, employees, onTaskAdded, on
     setLoading(true);
     try {
       const res = await axios.post(
-        "http://localhost:5000/api/tasks",
+        `${import.meta.env.VITE_API_URL}/api/tasks`,
         { title, description, teamId, assignedTo, priority },
         { headers: { Authorization: `Bearer ${token}` } }
       );

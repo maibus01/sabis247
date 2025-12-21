@@ -56,7 +56,7 @@ export default function Revenue({ teamId, days = 1 }) {
       setLoading(true);
       try {
         const res = await axios.get(
-          `http://localhost:5000/api/tasks/team/${teamId}/history`,
+          `${import.meta.env.VITE_API_URL}/api/tasks/team/${teamId}/history`,
           { headers: { Authorization: `Bearer ${token}` } }
         );
 

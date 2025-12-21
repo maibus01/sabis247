@@ -19,7 +19,7 @@ export default function AdminTeam() {
     const fetchTeam = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:5000/api/admin/teams/${teamId}`,
+          `${import.meta.env.VITE_API_URL}/api/admin/teams/${teamId}`,
           { headers: { Authorization: `Bearer ${loggedInUser.token}` } }
         );
         setTeam(res.data);

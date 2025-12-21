@@ -24,9 +24,9 @@ export default function AdminDashboard() {
     try {
       setLoading(true);
       const [usersRes, teamsRes, statsRes] = await Promise.all([
-        axios.get("http://localhost:5000/api/admin/users", { headers }),
-        axios.get("http://localhost:5000/api/admin/teams", { headers }),
-        axios.get("http://localhost:5000/api/admin/stats", { headers }),
+        axios.get(`${import.meta.env.VITE_API_URL}/api/admin/users`, { headers }),
+        axios.get(`${import.meta.env.VITE_API_URL}/api/admin/teams`, { headers }),
+        axios.get(`${import.meta.env.VITE_API_URL}/api/admin/stats`, { headers }),
       ]);
 
       setUsers(usersRes.data);
@@ -48,7 +48,7 @@ export default function AdminDashboard() {
   const toggleUser = async (id) => {
     try {
       await axios.put(
-        `http://localhost:5000/api/admin/users/${id}/toggle`,
+        `${import.meta.env.VITE_API_URL}/api/admin/users/${id}/toggle`,
         {},
         { headers: { Authorization: `Bearer ${loggedInUser.token}` } }
       );
