@@ -1,0 +1,14 @@
+{
+  "home": {
+    "enterInviteCode": "Enter invite code",
+    "joining": "Joining...",
+    "join": "Join",
+    "failedLoadTeams": "Failed to load your teams",
+    "notPartTeam": "You are not part of this team",
+    "joinedTeam": "Joined team successfully as",
+    "failedJoinTeam": "Failed to join team",
+    "noDescription": "No description",
+    "owner": "Owner",
+    "teamCreated": "Team created successfully"
+  }
+}

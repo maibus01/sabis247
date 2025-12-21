@@ -1,0 +1,11 @@
+# Node modules
+node_modules/
+
+# Vite build folder
+dist/
+
+# Environment variables
+.env
+
+# Mac system files
+.DS_Store
