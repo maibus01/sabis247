@@ -13,7 +13,17 @@ exports.getAllUsers = async (req, res) => {
 
 exports.createUser = async (req, res) => {
   try {
-    const { name, email, password, photo } = req.body;
+    let { name, email, password, photo } = req.body;
+
+    // Trim inputs to remove invisible characters
+    name = name?.trim();
+    email = email?.trim();
+    password = password?.trim();
+
+    // Validate required fields
+    if (!name || !email || !password) {
+      return res.status(400).json({ message: "Name, email, and password are required" });
+    }
 
     const existingUser = await User.findOne({ email });
     if (existingUser) {
@@ -34,9 +44,7 @@ exports.createUser = async (req, res) => {
     await user.save();
 
     // Generate JWT token
-    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
-      expiresIn: "7d",
-    });
+    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: "7d" });
 
     res.json({
       _id: user._id,
@@ -46,9 +54,11 @@ exports.createUser = async (req, res) => {
       token,
     });
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    console.error("REGISTER ERROR:", err); // Log full error
+    res.status(500).json({ message: "Server error. Please try again." });
   }
 };
+
 
 exports.loginUser = async (req, res) => {
   try {

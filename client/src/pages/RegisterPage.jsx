@@ -21,11 +21,11 @@ export default function Register() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleRegister = async (e) => {
+const handleRegister = async (e) => {
   e.preventDefault();
   const { name, email, password } = formData;
 
-  if (!name || !email || !password) {
+  if (!name?.trim() || !email?.trim() || !password?.trim()) {
     alert(t("All fields are required"));
     return;
   }
@@ -36,7 +36,7 @@ export default function Register() {
   }
 
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  if (!emailRegex.test(email)) {
+  if (!emailRegex.test(email.trim())) {
     alert(t("Please enter a valid email"));
     return;
   }
@@ -46,31 +46,32 @@ export default function Register() {
   try {
     const res = await axios.post(
       `${import.meta.env.VITE_API_URL}/api/users/register`,
-      formData,
       {
-        timeout: 25000, // 🔥 REQUIRED FOR MOBILE
-        headers: {
-          "Content-Type": "application/json"
-        }
+        name: name.trim(),
+        email: email.trim(),
+        password: password.trim(),
+      },
+      {
+        timeout: 25000,
+        headers: { "Content-Type": "application/json" },
       }
     );
 
     localStorage.setItem("loggedInUser", JSON.stringify(res.data));
     alert(t("Registration successful"));
     navigate("/login");
-
   } catch (error) {
-    console.error("REGISTER ERROR:", error);
-
+    console.error("REGISTER ERROR:", error.response?.data || error.message);
     alert(
       error.response?.data?.message ||
       error.message ||
-      "Network error. Please try again."
+      "Registration failed. Please try again."
     );
   } finally {
     setLoading(false);
   }
 };
+
 
 
   const languages = [
