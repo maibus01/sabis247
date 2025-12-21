@@ -33,7 +33,17 @@ app.use(cors({
 }));
 
 /* ⚠️ REQUIRED for Safari */
-app.options("*", cors());
+app.use(cors({
+  origin: [
+    "http://localhost:5173",
+    "https://sabis247.vercel.app"
+  ],
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+  credentials: true,
+  maxAge: 86400
+}));
+
 
 app.use(bodyParser.json());
 
