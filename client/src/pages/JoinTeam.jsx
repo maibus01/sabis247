@@ -10,7 +10,7 @@ export default function JoinTeam({ token, onJoin }) {
     setLoading(true);
     try {
       const res = await axios.post(
-        "http://localhost:5000/api/invites/join",
+       `${import.meta.env.VITE_API_URL}/api/invites/join`,
         { code },
         { headers: { Authorization: `Bearer ${token}` } }
       );

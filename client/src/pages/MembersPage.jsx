@@ -45,7 +45,7 @@ export default function MembersPage() {
     const fetchTeam = async () => {
       try {
         setLoading(true);
-        const res = await axios.get(`http://localhost:5000/api/teams/${teamId}`, {
+        const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/teams/${teamId}`, {
           headers: { Authorization: `Bearer ${loggedInUser.token}` },
         });
         setTeam(res.data);
@@ -66,7 +66,7 @@ export default function MembersPage() {
 
     try {
       const res = await axios.post(
-        `http://localhost:5000/api/invites/create`,
+        `${import.meta.env.VITE_API_URL}/api/invites/create`,
         { teamId: team._id, role },
         { headers: { Authorization: `Bearer ${userToken}` } }
       );
@@ -93,7 +93,7 @@ export default function MembersPage() {
 
     try {
       await axios.delete(
-        `http://localhost:5000/api/teams/${team._id}/members/${memberId}`,
+        `${import.meta.env.VITE_API_URL}/api/teams/${team._id}/members/${memberId}`,
         { headers: { Authorization: `Bearer ${userToken}` } }
       );
 

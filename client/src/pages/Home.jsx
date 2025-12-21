@@ -31,7 +31,7 @@ export default function Home() {
   const fetchTeams = async (token) => {
     try {
       const res = await axios.get(
-        "http://localhost:5000/api/teams/user/me",
+        `${import.meta.env.VITE_API_URL}/api/teams/user/me`,
         { headers: { Authorization: `Bearer ${token}` } }
       );
 
@@ -53,7 +53,7 @@ export default function Home() {
 
     try {
       const res = await axios.get(
-        `http://localhost:5000/api/tasks/team/${teamId}/history`,
+        `${import.meta.env.VITE_API_URL}/api/tasks/team/${teamId}/history`,
         { headers: { Authorization: `Bearer ${token}` } }
       );
 
@@ -124,7 +124,7 @@ export default function Home() {
 
     try {
       const res = await axios.post(
-        "http://localhost:5000/api/invites/join",
+        `${import.meta.env.VITE_API_URL}/api/invites/join`,
         { code: inviteCode },
         { headers: { Authorization: `Bearer ${user.token}` } }
       );

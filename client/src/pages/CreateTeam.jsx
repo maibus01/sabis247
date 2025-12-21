@@ -32,7 +32,7 @@ export default function CreateTeam() {
     setLoading(true);
     try {
       const res = await axios.post(
-        "http://localhost:5000/api/teams",
+        `${import.meta.env.VITE_API_URL}/api/teams`,
         { 
           name: teamName, 
           description, 

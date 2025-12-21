@@ -24,7 +24,7 @@ export default function Settings() {
   const fetchTeam = async (teamId) => {
     try {
       setLoading(true);
-      const res = await axios.get(`http://localhost:5000/api/teams/${teamId}`, {
+      const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/teams/${teamId}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setTeam(res.data);
@@ -40,7 +40,7 @@ export default function Settings() {
   // Fetch earn rules
   const fetchEarnRules = async (teamId) => {
     try {
-      const res = await axios.get(`http://localhost:5000/api/earnRules/team/${teamId}`, {
+      const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/earnRules/team/${teamId}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setEarnRules(res.data || []);
@@ -65,7 +65,7 @@ export default function Settings() {
     if (!confirmDelete) return;
 
     try {
-      await axios.delete(`http://localhost:5000/api/teams/${team._id}`, {
+      await axios.delete(`${import.meta.env.VITE_API_URL}/api/teams/${team._id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
 
