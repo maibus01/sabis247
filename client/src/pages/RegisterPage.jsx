@@ -6,7 +6,11 @@ import { useTranslation } from "react-i18next";
 export default function Register() {
   const navigate = useNavigate();
   const { t, i18n } = useTranslation();
-  const [formData, setFormData] = useState({ name: "", email: "", password: "" });
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    password: "",
+  });
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -39,7 +43,10 @@ export default function Register() {
 
     setLoading(true);
     try {
-      const res = await axios.post("http://localhost:5000/api/users/register", formData);
+      const res = await axios.post(
+        `${import.meta.env.VITE_API_URL}/api/users/register`,
+        formData
+      );
       localStorage.setItem("loggedInUser", JSON.stringify(res.data));
       alert(t("Registration successful"));
       navigate("/login");
@@ -60,7 +67,11 @@ export default function Register() {
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col items-center justify-center px-4 relative">
       {/* Language Switcher */}
-      <div className={`absolute top-4 ${i18n.language === "ar" ? "left-4" : "right-4"} flex gap-2`}>
+      <div
+        className={`absolute top-4 ${
+          i18n.language === "ar" ? "left-4" : "right-4"
+        } flex gap-2`}
+      >
         {languages.map((lang) => (
           <button
             key={lang.code}
@@ -78,7 +89,9 @@ export default function Register() {
 
       {/* Title */}
       <div className="text-center mb-8">
-        <h1 className="text-3xl font-bold text-gray-800">{t("Create Account")}</h1>
+        <h1 className="text-3xl font-bold text-gray-800">
+          {t("Create Account")}
+        </h1>
         <p className="text-gray-500 mt-1">{t("Join your team in seconds")}</p>
       </div>
 
@@ -127,7 +140,10 @@ export default function Register() {
 
         <p className="text-center text-sm text-gray-500">
           {t("Already have an account?")}{" "}
-          <Link to="/login" className="text-hybriflow-dark-teal font-medium hover:underline">
+          <Link
+            to="/login"
+            className="text-hybriflow-dark-teal font-medium hover:underline"
+          >
             {t("Login")}
           </Link>
         </p>
