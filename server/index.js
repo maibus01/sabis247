@@ -14,20 +14,17 @@ const tasksRoutes = require("./src/routes/tasks");
 const earnRulesRouter = require("./src/routes/earnRule");
 const adminRoutes = require("./src/routes/admin");
 
+// ⚡ THIS WAS MISSING
 const app = express();
-app.get("/", (req, res) => {
-  res.send("API is running 🚀");
-});
-
-app.get("/api/health", (req, res) => {
-  res.json({ status: "ok" });
-});
-
-
 
 const PORT = process.env.PORT || 5000;
 
-app.use(cors());
+// CORS - allow only your frontend
+app.use(cors({
+  origin: "https://sabis247.vercel.app", // replace with your Vercel URL
+  credentials: true
+}));
+
 app.use(bodyParser.json());
 
 // Routes
@@ -41,21 +38,24 @@ app.use("/api/admin", adminRoutes);
 // ⏰ DAILY CRON (23:59)
 cron.schedule("59 23 * * *", async () => {
   console.log("⏰ Running daily task rollover...");
-
-  // 1️⃣ Close today's tasks and create next day tasks
   await closeAndCreateNextDayTasks();
-
-  // 2️⃣ Delete today's requested and rejected tasks
   await deleteRequestedAndRejectedTasks();
 });
 
-// Mongo
+// MongoDB connection
 mongoose
   .connect(process.env.MONGO_URI)
   .then(() => console.log("MongoDB connected"))
-  .catch(err => console.error(err));
+  .catch(err => console.error("MongoDB error:", err));
 
-app.listen(PORT, () =>
-  console.log(`🚀 Server running on port ${PORT}`)
-);
+// Test route to confirm backend is alive
+app.get("/", (req, res) => {
+  res.send("Backend is working ✅");
+});
 
+app.get("/api/health", (req, res) => {
+  res.json({ status: "ok" });
+});
+
+// Start server
+app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
