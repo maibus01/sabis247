@@ -1,0 +1,17 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #2563eb;
+  --color-secondary: #10b981;
+
+  --color-hybriflow-dark-teal: #0A6C74;
+  --color-hybriflow-dark-gray: #4A4A4A;
+  --color-hybriflow-light-blue: #4FC3F7;
+  --color-hybriflow-medium-gray: #9E9E9E;
+}
+
+@layer base {
+  *, ::before, ::after {
+    border-color: theme(colors.gray.200);
+  }
+}
