@@ -1,9 +1,6 @@
 # Node modules
 node_modules/
 
-# Vite build folder
-dist/
-
 # Environment variables
 .env
 
