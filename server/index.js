@@ -47,17 +47,26 @@ app.get("/api/health", (req, res) => {
   res.json({ status: "ok" });
 });
 
-/* 🔹 Serve frontend (Vite React build) */
 const DIST_DIR = path.join(__dirname, "dist");
 
-// 1️⃣ Serve static files FIRST
+/* 1️⃣ Serve static assets */
 app.use(express.static(DIST_DIR));
 
-// 2️⃣ SPA fallback — ONLY for non-file requests
-app.get("*", (req, res) => {
-  if (req.path.startsWith("/api")) return res.sendStatus(404);
+/* 2️⃣ SPA fallback — NO wildcards, NO app.get */
+app.use((req, res, next) => {
+  if (req.path.startsWith("/api")) return next();
+
+  const filePath = path.join(DIST_DIR, req.path);
+
+  // If file exists, let express.static handle it
+  if (require("fs").existsSync(filePath)) {
+    return next();
+  }
+
+  // Otherwise return index.html
   res.sendFile(path.join(DIST_DIR, "index.html"));
 });
+
 
 /* 🔹 MongoDB Connection */
 mongoose
