@@ -49,23 +49,15 @@ app.get("/api/health", (req, res) => {
 
 const DIST_DIR = path.join(__dirname, "dist");
 
-/* 1️⃣ Serve static assets */
 app.use(express.static(DIST_DIR));
 
-/* 2️⃣ SPA fallback — NO wildcards, NO app.get */
-app.use((req, res, next) => {
-  if (req.path.startsWith("/api")) return next();
-
-  const filePath = path.join(DIST_DIR, req.path);
-
-  // If file exists, let express.static handle it
-  if (require("fs").existsSync(filePath)) {
-    return next();
+app.get("*", (req, res) => {
+  if (req.path.startsWith("/api")) {
+    return res.status(404).json({ error: "Not found" });
   }
-
-  // Otherwise return index.html
   res.sendFile(path.join(DIST_DIR, "index.html"));
 });
+
 
 
 /* 🔹 MongoDB Connection */
