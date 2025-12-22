@@ -107,7 +107,7 @@ export default function EmployeesTab({ teamId }) {
             </tr>
           </thead>
 
-          <tbody>
+          <tbody>   
             {employees.map((e) => {
               const tData = totalsMap[e.id] || {};
               return (
@@ -142,7 +142,7 @@ export default function EmployeesTab({ teamId }) {
             })}
           </tbody>
         </table>
-      </div>
+      </div>  
 
       {selectedEmployee && (
         <AddTaskModal

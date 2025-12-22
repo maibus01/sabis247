@@ -164,7 +164,7 @@ export default function Manager() {
                 {t("totalEarnToday")}
               </p>
               <p className="text-2xl font-bold">
-                {summary.totalEarn} ر.س
+                {summary.totalEarn} sar
               </p>
             </div>
           </div>
