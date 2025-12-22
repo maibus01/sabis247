@@ -50,14 +50,13 @@ app.get("/api/health", (req, res) => {
 });
 
 /* 🔹 Serve frontend (Vite React build) */
-// Serve static files from dist
-app.use(express.static(path.join(__dirname, "dist")));
+// Adjust path to your client/dist folder if needed
+app.use(express.static(path.join(__dirname, "../client/dist")));
 
 // Catch-all route for SPA (React Router)
-app.get("/:path(*)", (req, res) => {
-  res.sendFile(path.join(__dirname, "dist", "index.html"));
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "../client/dist/index.html"));
 });
-
 
 /* 🔹 MongoDB Connection */
 mongoose
