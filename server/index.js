@@ -48,7 +48,7 @@ app.get("/api/health", (req, res) => {
 });
 
 /* 🔹 Serve frontend (Vite React build) */
-const DIST_DIR = path.join(__dirname, "../client/dist");
+const DIST_DIR = path.join(__dirname, "dist");
 app.use(express.static(DIST_DIR));
 
 /* SPA fallback for React Router (must come after API routes and static files) */
