@@ -54,9 +54,10 @@ app.get("/api/health", (req, res) => {
 app.use(express.static(path.join(__dirname, "dist")));
 
 // Catch-all route for SPA (React Router)
-app.get("/*", (req, res) => {
+app.get("/:path(*)", (req, res) => {
   res.sendFile(path.join(__dirname, "dist", "index.html"));
 });
+
 
 /* 🔹 MongoDB Connection */
 mongoose
