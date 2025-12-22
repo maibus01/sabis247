@@ -101,12 +101,6 @@ export default function EmployeesTab({ teamId }) {
               <th className="px-4 py-3 text-right font-semibold text-gray-600">
                 {t("tasksToday")}
               </th>
-              <th className="px-4 py-3 text-right font-semibold text-gray-600">
-                {t("amountToday")}
-              </th>
-              <th className="px-4 py-3 text-right font-semibold text-gray-600">
-                {t("earnToday")}
-              </th>
               <th className="px-4 py-3 text-center font-semibold text-gray-600">
                 {t("action")}
               </th>
@@ -130,14 +124,6 @@ export default function EmployeesTab({ teamId }) {
 
                   <td className="px-4 py-3 text-right text-gray-600">
                     {tData.totalTasks || 0}
-                  </td>
-
-                  <td className="px-4 py-3 text-right text-gray-600">
-                    {tData.totalAmount || 0} ر.س
-                  </td>
-
-                  <td className="px-4 py-3 text-right text-gray-600">
-                    {tData.totalEarn || 0} ر.س
                   </td>
 
                   <td className="px-4 py-3 text-center">
