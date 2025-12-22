@@ -5,13 +5,11 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const path = require("path");
 
-/* Controllers */
 const {
   closeAndCreateNextDayTasks,
   deleteRequestedAndRejectedTasks
 } = require("./src/controllers/tasksController");
 
-/* Routes */
 const userRoutes = require("./src/routes/users");
 const teamRoutes = require("./src/routes/teams");
 const inviteRoutes = require("./src/routes/invite");
@@ -50,12 +48,13 @@ app.get("/api/health", (req, res) => {
 });
 
 /* 🔹 Serve frontend (Vite React build) */
-// Adjust path to your client/dist folder if needed
-app.use(express.static(path.join(__dirname, "../client/dist")));
+const DIST_DIR = path.join(__dirname, "../client/dist");
+app.use(express.static(DIST_DIR));
 
-// Catch-all route for SPA (React Router)
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "../client/dist/index.html"));
+/* SPA fallback for React Router (must come after API routes and static files) */
+app.use((req, res, next) => {
+  if (req.path.startsWith("/api")) return next(); // Skip API requests
+  res.sendFile(path.join(DIST_DIR, "index.html"));
 });
 
 /* 🔹 MongoDB Connection */
