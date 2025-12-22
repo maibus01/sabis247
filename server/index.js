@@ -49,11 +49,13 @@ app.get("/api/health", (req, res) => {
 
 /* 🔹 Serve frontend (Vite React build) */
 const DIST_DIR = path.join(__dirname, "dist");
+
+// 1️⃣ Serve static files FIRST
 app.use(express.static(DIST_DIR));
 
-/* SPA fallback for React Router (must come after API routes and static files) */
-app.use((req, res, next) => {
-  if (req.path.startsWith("/api")) return next(); // Skip API requests
+// 2️⃣ SPA fallback — ONLY for non-file requests
+app.get("*", (req, res) => {
+  if (req.path.startsWith("/api")) return res.sendStatus(404);
   res.sendFile(path.join(DIST_DIR, "index.html"));
 });
 
