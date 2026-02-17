@@ -5,11 +5,6 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const path = require("path");
 
-const {
-  closeAndCreateNextDayTasks,
-  deleteRequestedAndRejectedTasks
-} = require("./src/controllers/tasksController");
-
 const userRoutes = require("./src/routes/users");
 const teamRoutes = require("./src/routes/teams");
 const inviteRoutes = require("./src/routes/invite");
@@ -47,18 +42,17 @@ app.get("/api/health", (req, res) => {
   res.json({ status: "ok" });
 });
 
+/* 🔹 Serve React app */
 const DIST_DIR = path.join(__dirname, "dist");
 
+// Serve static files (JS, CSS, images) with correct MIME type
 app.use(express.static(DIST_DIR));
 
-app.get("*", (req, res) => {
-  if (req.path.startsWith("/api")) {
-    return res.status(404).json({ error: "Not found" });
-  }
+// Only serve index.html for non-API routes that don’t match a static file
+app.get("*", (req, res, next) => {
+  if (req.path.startsWith("/api")) return next(); // skip API routes
   res.sendFile(path.join(DIST_DIR, "index.html"));
 });
-
-
 
 /* 🔹 MongoDB Connection */
 mongoose
